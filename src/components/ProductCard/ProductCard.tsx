@@ -5,7 +5,7 @@ import { cutDescription } from "../../functions/index";
 function ProductCard({title, description, imageURL, price, colors, category }: IPrpducts) {
     return (
         <>
-            <div className="rounded-sm p-2 border h-fit ">
+            <div className="rounded-sm p-2 border h-fit">
                 <div className="h-[220px]">
                     <img
                         src={imageURL}

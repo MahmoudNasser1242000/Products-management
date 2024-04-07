@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
-import { IPrpducts } from "../Interfaces/products"
+import { ICategory, IForm, IProducts } from "../Interfaces/products"
 
 
-export const productList: IPrpducts[] = [
+export const productList: IProducts[] = [
     {
         id: uuid(),
         title: "Nike Shoes",
@@ -146,3 +146,66 @@ export const productList: IPrpducts[] = [
         },
     },
 ];
+
+export const formInputs: IForm[] = [
+    {
+        id: uuid(),
+        type: "text",
+        name: "title",
+        label: "Product Title"
+    },
+    {
+        id: uuid(),
+        type: "text",
+        name: "description",
+        label: "Product Description"
+    },
+    {
+        id: uuid(),
+        type: "text",
+        name: "imageURL",
+        label: "Product Image URL"
+    },
+    {
+        id: uuid(),
+        type: "text",
+        name: "price",
+        label: "Product Price"
+    },
+]
+
+
+export const colors: string[] = [
+    "#A31ACB",
+    "#FF6E31",
+    "#3C2A21",
+    "#CB1C8D",
+    "#645CBB",
+    "#FF0032",
+    "#820000",
+    "#13005A",
+    "#1F8A70",
+    "#84D2C5",
+    "#2563eb"
+] 
+
+export const categories: ICategory[] = [
+    {
+        id: uuid(),
+        name: "Cars",
+        imageURL:
+            "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    },
+    {
+        id: uuid(),
+        name: "Nike",
+        imageURL:
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    },
+    {
+        id: uuid(),
+        name: "PC Desktop",
+        imageURL:
+            "https://images.unsplash.com/photo-1552831388-6a0b3575b32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
+    },
+]

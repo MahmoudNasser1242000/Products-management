@@ -1,8 +1,8 @@
 // import styles from "./ProductCard.module.css";
-import { IPrpducts } from "../../Interfaces/products"
+import { IProducts } from "../../Interfaces/products"
 import { cutDescription } from "../../functions/index";
 
-function ProductCard({title, description, imageURL, price, colors, category }: IPrpducts) {
+function ProductCard({title, description, imageURL, price, colors, category, updateProduct }: IProducts) {
     return (
         <>
             <div className="rounded-sm p-2 border h-fit">
@@ -19,7 +19,7 @@ function ProductCard({title, description, imageURL, price, colors, category }: I
                 </p>
                 <div className="py-4 space-x-2">
                     {
-                        colors?.map((color) => <span style={{background: color}} className={`w-5 h-5 rounded-full inline-block`}></span>)
+                        colors?.map((color) => <span style={{background: color}} key={color} className={`w-5 h-5 rounded-full inline-block`}></span>)
                     }
                 </div>
                 <div className="flex justify-between items-center pb-3">
@@ -34,7 +34,7 @@ function ProductCard({title, description, imageURL, price, colors, category }: I
                     </span>
                 </div>
                 <div className="py-2 flex space-x-2">
-                    <button className="bg-indigo-800 py-2 px-3 w-full text-yellow-50 rounded-md">Edit</button>
+                    <button className="bg-indigo-800 py-2 px-3 w-full text-yellow-50 rounded-md" onClick={updateProduct}>Edit</button>
                     <button className="bg-red-700 py-2 px-3 w-full text-yellow-50 rounded-md">Delet</button>
                 </div>
             </div>

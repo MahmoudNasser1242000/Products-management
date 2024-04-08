@@ -2,7 +2,7 @@
 import { IProducts } from "../../Interfaces/products"
 import { cutDescription } from "../../functions/index";
 
-function ProductCard({id, title, description, imageURL, price, colors, category, updateProduct}: IProducts) {
+function ProductCard({id, title, description, imageURL, price, colors, category, updateProduct, deleteProduct}: IProducts) {
     return (
         <>
             <div className="rounded-sm p-2 border h-fit">
@@ -35,7 +35,7 @@ function ProductCard({id, title, description, imageURL, price, colors, category,
                 </div>
                 <div className="py-2 flex space-x-2">
                     <button className="bg-indigo-800 py-2 px-3 w-full text-yellow-50 rounded-md" onClick={() => updateProduct?.(id)}>Edit</button>
-                    <button className="bg-red-700 py-2 px-3 w-full text-yellow-50 rounded-md">Delet</button>
+                    <button className="bg-red-700 py-2 px-3 w-full text-yellow-50 rounded-md" onClick={() => { deleteProduct?.(id) }}>Delet</button>
                 </div>
             </div>
         </>

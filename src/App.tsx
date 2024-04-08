@@ -34,6 +34,7 @@ function App() {
     price: "",
   });
 
+  //============== open and close modal ==============
   function closeModal() {
     setIsOpen(false);
     setUpdate(false);
@@ -62,6 +63,7 @@ function App() {
     })
   }
 
+  //============== update product ==============
   function updateProduct(id: string | undefined) {
     setIsOpen(true);
     setUpdate(true);
@@ -74,6 +76,14 @@ function App() {
     }
   }
 
+  //============== delete product ==============
+  function deleteProduct(id: string | undefined) {
+    setProductsList((prev: IProducts[]) => {
+      return prev.filter((product: IProducts) => product.id !== id)
+    })
+  }
+
+  //============== modal validation ==============
   function errorHandling(inputName: string, errorMsg: string) {
     setError((prev: IErrors) => {
       return {
@@ -160,7 +170,7 @@ function App() {
         <Header openModal={openModal} />
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-12">
           {productsList?.map((prod) => (
-            <ProductCard key={prod.id} {...prod} updateProduct={updateProduct} />
+            <ProductCard key={prod.id} {...prod} updateProduct={updateProduct} deleteProduct={deleteProduct}/>
           ))}
         </div>
         <Modal

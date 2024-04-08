@@ -10,7 +10,8 @@ export interface IProducts {
         name: string,
         imageURL: string
     }
-    updateProduct?: (id: string | undefined)=> void
+    updateProduct?: (id: string | undefined)=> void,
+    deleteProduct?: (id: string | undefined)=> void
 }
 
 export interface IErrors {

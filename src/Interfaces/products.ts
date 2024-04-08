@@ -1,5 +1,5 @@
 export interface IProducts {
-    id?: string,
+    id?: string | undefined,
     title: string,
     description: string,
     imageURL: string,
@@ -10,7 +10,7 @@ export interface IProducts {
         name: string,
         imageURL: string
     }
-    updateProduct?: ()=> void
+    updateProduct?: (id: string | undefined)=> void
 }
 
 export interface IErrors {
@@ -28,7 +28,7 @@ export interface IForm {
 }
 
 export interface ICategory { 
-    id: string, 
+    id?: string, 
     name: string, 
     imageURL: string 
 }

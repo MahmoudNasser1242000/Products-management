@@ -1,11 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import {
-    ChangeEvent,
-    Dispatch,
-    Fragment,
-    SetStateAction,
-    useState,
-} from "react";
+import { ChangeEvent, Dispatch, Fragment, SetStateAction } from "react";
 import { categories, colors, formInputs } from "../../data";
 import { ICategory, IErrors, IProducts } from "../../Interfaces/products";
 import SelectCategory from "../SelectCategory/SelectCategory";
@@ -16,9 +10,14 @@ interface Iprops {
     errorValidation: (value: string, inputName: string) => void;
     error: IErrors;
     // submitValidation: (inputValues: IProducts) => void;
-    setProductsList: Dispatch<SetStateAction<IProducts[]>>;
+    setProductsList: React.Dispatch<React.SetStateAction<IProducts[]>>;
     disabled: boolean;
-    update: boolean
+    update: boolean;
+    productId: string | undefined;
+    productsList: IProducts[];
+    // updatedProduct: IProducts | null
+    form: IProducts;
+    setForm: React.Dispatch<React.SetStateAction<IProducts>>;
 }
 export default function Modal({
     isOpen,
@@ -28,18 +27,12 @@ export default function Modal({
     // submitValidation,
     setProductsList,
     disabled,
-    update
+    update,
+    form,
+    setForm,
+    productId,
+    productsList,
 }: Iprops) {
-
-    const [form, setForm] = useState<IProducts>({
-        title: "",
-        description: "",
-        imageURL: "",
-        price: "",
-        colors: [],
-        category: categories[0],
-    });
-
     function changeValue(e: ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
         setForm((prev: IProducts) => {
@@ -85,10 +78,9 @@ export default function Modal({
         setForm((prev: IProducts) => {
             return {
                 ...prev,
-                category: {...ctg}
+                category: { ...ctg },
             };
         });
-
     }
 
     function addProduct(e: React.FormEvent<HTMLFormElement>) {
@@ -96,11 +88,22 @@ export default function Modal({
         // submitValidation(form);
 
         if (update) {
-            
+            setProductsList((prev: IProducts[]) => {
+                return prev.map((product: IProducts) => {
+                    if (product.id === productId) {
+                        return {
+                            ...product,
+                            ...form
+                        }
+                    } else {
+                        return product
+                    }
+                })
+            })
         } else {
             setProductsList((prev: IProducts[]) => {
                 return [...prev, form];
-            })
+            });
         }
 
         closeModal();
@@ -111,7 +114,7 @@ export default function Modal({
             price: "",
             colors: [],
             category: categories[0],
-        })
+        });
     }
     return (
         <>
@@ -173,16 +176,31 @@ export default function Modal({
                                                     }}
                                                     style={{ background: color }}
                                                     key={color}
-                                                    className={`w-5 h-5 rounded-full inline-block outline-offset-1 outline-cyan-600/[0.5]`}
+                                                    id={color}
+                                                    className={`w-5 h-5 rounded-full inline-block ${update
+                                                            ? form.colors.find((clr: string) => clr === color)
+                                                                ? "outline"
+                                                                : ""
+                                                            : ""
+                                                        } outline-offset-1 outline-cyan-600/[0.5]`}
                                                 ></span>
                                             ))}
-                                            {
-                                                form.colors?.map((color: string) => <span key={color} style={{background: color}} className="inline-block my-2 px-1 text-white rounded-md">{color}</span>)
-                                            }
+                                            {form.colors?.map((color: string) => (
+                                                <span
+                                                    key={color}
+                                                    style={{ background: color }}
+                                                    className="inline-block my-2 px-1 text-white rounded-md"
+                                                >
+                                                    {color}
+                                                </span>
+                                            ))}
                                         </div>
-                                        <SelectCategory selectCategory={selectCategory}/>
-                                        <button disabled={disabled} className="bg-indigo-700 w-full mt-5 rounded-[4px] text-white py-2 disabled:bg-indigo-400 disabled:cursor-not-allowed">
-                                            {update? "Update Product" : "Add New Product"}
+                                        <SelectCategory selectCategory={selectCategory} form={form}/>
+                                        <button
+                                            disabled={disabled}
+                                            className="bg-indigo-700 w-full mt-5 rounded-[4px] text-white py-2 disabled:bg-indigo-400 disabled:cursor-not-allowed"
+                                        >
+                                            {update ? "Update Product" : "Add New Product"}
                                         </button>
                                     </form>
                                 </Dialog.Panel>

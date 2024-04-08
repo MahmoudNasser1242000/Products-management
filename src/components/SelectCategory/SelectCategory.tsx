@@ -1,14 +1,15 @@
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { categories } from '../../data'
-import { ICategory } from '../../Interfaces/products'
+import { ICategory, IProducts } from '../../Interfaces/products'
 
 interface IProp {
     selectCategory: (ctg: ICategory) => void
+    form: IProducts;
 }
 
-export default function SelectCategory({selectCategory}: IProp) {
-    const [selected, setSelected] = useState<ICategory>(categories[0])
+export default function SelectCategory({selectCategory, form}: IProp) {
+    const [selected, setSelected] = useState<ICategory>(form.category)
 
     function classNames(...classes: string[]) {
         return classes.filter(Boolean).join(' ')        
